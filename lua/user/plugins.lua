@@ -63,9 +63,9 @@ return packer.startup(function(use)
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
   use({
-	"catppuccin/nvim",
-	as = "catppuccin"
-})
+    "catppuccin/nvim",
+    as = "catppuccin"
+  })
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -80,14 +80,58 @@ return packer.startup(function(use)
   -- To enable more of the features of rust-analyzer, such as inlay hints and more!
   use "simrat39/rust-tools.nvim"
   use "Saecki/crates.nvim"
-	use	"j-hui/fidget.nvim"
+  use "j-hui/fidget.nvim"
 
+  -- rust package manager
+  use {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npm run compile",
+    "saecki/crates.nvim",
+    tag = "v0.3.0",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("crates").setup {
+        null_ls = {
+          enabled = true,
+          name = "crates.nvim",
+        },
+      }
+    end,
+
+  }
+  -- use {
+  --  "mxsdev/nvim-dap-vscode-js" {
+  --   {
+  --     "saecki/crates.nvim",
+  --     tag = "v0.3.0",
+  --     requires = { "nvim-lua/plenary.nvim" },
+  --     config = function()
+  --       require("crates").setup {
+  --         null_ls = {
+  --           enabled = true,
+  --           name = "crates.nvim",
+  --         },
+  --       }
+  --     end,
+  --   }
+  -- }
+  -- use {
+  --   'saecki/crates.nvim',
+  --   event = { "BufRead Cargo.toml" },
+  --   requires = { { 'nvim-lua/plenary.nvim' } },
+  --   config = function()
+  --     require('crates').setup()
+  --   end,
+  -- }
+
+  use "TimUntersberger/neogit"
   -- Debugging
   use "mfussenegger/nvim-dap"
   use "rcarriga/nvim-dap-ui"
   -- use "theHamsta/nvim-dap-virtual-text"
   -- use "Pocco81/DAPInstall.nvim"
-  
+
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
